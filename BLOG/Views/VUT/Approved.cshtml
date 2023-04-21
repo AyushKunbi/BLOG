@@ -1,0 +1,61 @@
+﻿@model List<BLOG.Models.UserThoughts>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="~/css/Cview.css" asp-append-version="true" />
+
+
+<body>
+
+
+    <div class="main">
+
+        @{
+            foreach (var ut in Model)
+            {
+                <div class="card shadow ">
+
+                    <h2>@ut.Title</h2>
+                    <p class="description">@ut.Description</p>
+                    <button class="read-more">Read More</button>
+                    <div class="author-date">
+                        <p>@ut.Name</p>
+                        <p class="date">@ut.CreatedAt</p>
+
+                    </div>
+
+                </div>
+            }
+        }
+
+    </div>
+    <script>
+const readMoreBtns = document.querySelectorAll('.read-more');
+
+        readMoreBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const description = btn.previousElementSibling;
+
+                if (btn.textContent === 'Read More') {
+                    description.style.maxHeight = 'none';
+                    btn.textContent = 'Read Less';
+                } else {
+                    description.style.maxHeight = '100px';
+                    btn.textContent = 'Read More';
+                }
+            });
+        });
+
+        const commentBtns = document.querySelectorAll('.comment');
+
+        commentBtns.forEach(btn => {
+            const comments = btn.parentElement.parentElement.querySelector('.comments');
+
+            btn.addEventListener('click', () => {
+                if (comments.style.display === 'none') {
+                    comments.style.display = 'block';
+                } else {
+                    comments.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>

@@ -1,0 +1,137 @@
+﻿@using BLOG.Models;
+@model BLOG.Models.UComments;
+@{
+    List<ContentModel> Blog = TempData["Blog"] as List<ContentModel>;
+    List<UComments> commentts = TempData["Comment"] as List<UComments>;
+
+}
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="~/css/Cview.css" asp-append-version="true" />
+
+<body>
+    <div class="main">
+
+        @{ foreach (var cont in Blog)
+            {
+                var user = Context.Session.GetString("UViewer");
+                <div class="card shadow ">
+                    <div class="card-dropdown">
+                        <button class="ellipsis-btn"><i class="fas fa-ellipsis-v"></i></button>
+                        <div class="dropdown-content">
+                            <form asp-action="UpdateBlog" asp-route-id="@cont.ID" method="get">
+                                <button type="submit" class="edit">Edit</button>
+                            </form>
+                            <form asp-action="DeleteContent" asp-route-id="@cont.ID" method="post">
+                                <button type="submit" class="delete">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <h2>@cont.Title</h2>
+                    <p class="description">@cont.Description</p>
+                    <button class="read-more">Read More</button>
+                    <div class="author-date">
+                        <p>@cont.Author</p>
+
+
+                        <p class="date">@cont.CreatedAt</p>
+                    </div>
+                    <div class="comments  cardC shadow">
+                        <h3>Comments:</h3>
+                        <form method="post" action="AddCom">
+                            <input type="hidden" name="blogPostId" value="@cont.ID" />
+                            <div class="new-comment-container">
+                                <textarea type="text" class="new-comment" asp-for="UComment"> </textarea>
+                                <button class="add-comment mt-2 button-74" role="button" type="submit">Comment</button>
+                            </div>
+                        </form>
+
+                        <div class="comment-container">
+                            @{
+
+                                foreach (var comt in commentts)
+                                {
+                                    if (comt.BlogPostId == cont.ID)
+                                    {
+                                        <div class="comment-row">
+                                            <div class="comment-text">
+                                                <p class=" mb-3 mt-3">@comt.UComment</p>
+                                                <span class=" mb-3 mt-3">-@comt.Uname</span>
+                                            </div>
+                                            @{ 
+                                                if (user == comt.Uname)
+                                                {
+
+                                            <div class="dropdown">
+                                                <button class="ellipsis-btn"><i class="fas fa-ellipsis-h"></i></button>
+                                                <div class="dropdown-content">
+                                                    <form asp-action="EditComment" asp-route-id="@comt.ID" method="get">
+                                                        <button type="submit" class="edit">Edit</button>
+                                                    </form>
+                                                    <form asp-action="DeleteComment" asp-route-id="@comt.ID" method="post">
+                                                        <button type="submit" class="delete">Delete</button>
+                                                    </form>
+
+                                                    @*<a href="/ViewContent/EditComment/@comt.ID">Edit</a>
+                                        <a href="/ViewContent/DeleteComment/@comt.ID">Delete</a>*@
+                                                </div>
+                                            </div>
+                                                    }
+                                                }
+                                        </div>
+                                    }
+
+                                }
+                            }
+
+                        </div>
+                    </div>
+
+                    <div class="button-container">
+                        <form action="LikeBtn" method="post">
+                         <input type="hidden" name="blogPostId" value="@cont.ID" />
+            <a class="like" href="LikePost/@cont.ID"><i class="fas fa-thumbs-up"></i> <span class="like-count">@cont.LikeCount</span></a>
+
+                     </form>
+
+                        <button class="comment"><i class="fas fa-comment"></i> Comment</button>
+                    </div>
+                </div>
+            }
+        }
+        
+    </div>
+ <script>
+const readMoreBtns = document.querySelectorAll('.read-more');
+
+        readMoreBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const description = btn.previousElementSibling;
+
+                if (btn.textContent === 'Read More') {
+                    description.style.maxHeight = 'none';
+                    btn.textContent = 'Read Less';
+                } else {
+                    description.style.maxHeight = '100px';
+                    btn.textContent = 'Read More';
+                }
+            });
+        });
+
+        const commentBtns = document.querySelectorAll('.comment');
+
+        commentBtns.forEach(btn => {
+            const comments = btn.parentElement.parentElement.querySelector('.comments');
+
+            btn.addEventListener('click', () => {
+                if (comments.style.display === 'none') {
+                    comments.style.display = 'block';
+                } else {
+                    comments.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>

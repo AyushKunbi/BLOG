@@ -1,0 +1,101 @@
+﻿@model List<BLOG.Models.UserThoughts>
+@using BLOG.Models;
+
+<style>
+    .read-more {
+        background: none;
+        border: none;
+        color: purple;
+        text-align: right;
+        cursor: pointer;
+        font-style: italic;
+        margin: -10px 0 20px;
+    }
+
+    .description {
+        max-height: 50px;
+        overflow: hidden;
+    }
+    .approve, .reject {
+        color: transparent;
+        text-shadow: 0 0 0 Black;
+        border-radius: 50px;
+    }
+
+        .approve:hover,.reject:hover {
+            color: transparent;
+            text-shadow: 0 0 0 Black;
+            border:3px solid black;
+           border-radius:50px;
+            
+        }
+        
+</style>
+
+
+
+
+<table class="table table-responsive  ">
+    <tr>
+        <th>Name</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th> </th>
+    </tr>
+
+    @{
+        foreach (var T in Model)
+        {
+            <tr>
+
+                <td class=""> @T.Name</td>
+                <td class=""> @T.Title</td>
+                <td><p class="description">@T.Description</p>  <button class="read-more">Read More</button></td>
+
+                <td class=""> @T.CreatedAt</td>
+                <td class=""> @T.StatusMessage</td>
+                @*<td> <a href="ViewMe/@T.Id">A</a> </td>
+                    <td>
+                        <a href="#">R</a>
+                    </td>*@
+
+                <td>
+                    <form asp-action="Actions" asp-route-id="@T.Id">
+                        <button class="btn btn-outline-success approve" type="submit" name="check" value="Approve">✔️</button>
+                    </form>
+                </td>
+                <td>
+                    <form asp-action="Actions" asp-route-id="@T.Id">
+                        <button class="btn btn-outline-danger reject" type="submit" name="check" value="Reject">❌</button>
+                    </form>
+                </td>
+
+            </tr>
+
+        }
+    }
+</table>
+@{ if (Model == null)
+    { <h6 class="text-center">@TempData["Tdata"]</h6>
+} }
+
+
+<script>
+    const readMoreBtns = document.querySelectorAll('.read-more');
+
+    readMoreBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const description = btn.previousElementSibling;
+
+            if (btn.textContent === 'Read More') {
+                description.style.maxHeight = 'none';
+                btn.textContent = 'Read Less';
+            } else {
+                description.style.maxHeight = '50px';
+                btn.textContent = 'Read More';
+            }
+        });
+    });
+</script>

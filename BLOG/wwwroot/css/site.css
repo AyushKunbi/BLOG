@@ -1,0 +1,55 @@
+html {
+    font-size: 14px;
+    
+}
+.card-dropdown {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+
+}
+.Ltext {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+    .card-dropdown:hover .dropdown-content {
+        display: block;
+    }
+.dropdown-content {
+   
+
+
+    display: none;
+    position: absolute;top: 100%;
+    right: 0;
+    z-index: 1;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+.container {
+    margin-top: 20px;
+}
+
+.footer {
+    margin-top: 20px;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+.footer {
+    margin-top: 5px;
+}
