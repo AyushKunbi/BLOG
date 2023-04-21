@@ -52,6 +52,7 @@ namespace BLOG.Controllers
             await Add_Content.Contents.AddAsync(Kontent);
             await Add_Content.SaveChangesAsync();
             return RedirectToAction("Cview","ViewContent");
+            //d
         }
         
 
