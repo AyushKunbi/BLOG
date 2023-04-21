@@ -3,7 +3,7 @@ using BLOG.Models;
 using BLOG.Data;
 using Microsoft.EntityFrameworkCore;
 
-
+//demo
 namespace BLOG.Controllers
 {
     public class LoginController : Controller
