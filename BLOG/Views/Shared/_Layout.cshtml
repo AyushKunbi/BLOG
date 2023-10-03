@@ -41,7 +41,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="VUT" asp-action="ViewMe">Approval List</a>
                         </li>
                     </ul>
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto " id="inout">
                         @{
                             var admin = Context.Session.GetString("AViewer");
                             var user = Context.Session.GetString("UViewer");

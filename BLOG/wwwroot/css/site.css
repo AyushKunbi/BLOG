@@ -29,6 +29,10 @@ html {
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
+#inout {
+    cursor: pointer;
+}
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;

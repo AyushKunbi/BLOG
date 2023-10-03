@@ -129,8 +129,8 @@ a {
 .profile .avatar {
     border-radius: 100%;
     float: left;
-    width: 18vw;
-    height:35vh;
+    width: 21vw;
+    height:37vh;
     margin: 0 2vmax 2vmax 0;
     border: 1vw solid rgba(0, 0, 0, 0.4);
     shape-outside: circle(51% at 50% 46.5%);
