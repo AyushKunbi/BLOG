@@ -73,7 +73,7 @@ namespace BLOG.Controllers
             await CreatorVar.Creators.AddAsync(SUcreator);
             await CreatorVar.SaveChangesAsync();
             TempData["msg"] = "Record Inserted..";
-            return RedirectToAction("CreatorSignUp");
+            return RedirectToAction("CreatorLogin", "Login");
 
 
         }
